@@ -6,7 +6,10 @@ from tkinter.ttk import Combobox
 # quantidade em estoque
 # preço unitário
 # um campo de seleção se o produto é gelado ou não
-
+def adicionar():
+    with open ('estoque.txt', 'a', encoding='UTF-8') as arquivo:
+        arquivo.write(txtestoque.get() +',' + qtdestoque.get()+',' + precounitario.get()+',')
+        arquivo.close()
 var = Tk()
 
 var.title("Estoque")
@@ -29,8 +32,21 @@ lbl2= Label(var, text="Preço Unitário", fg="pink", font=("Helvetica", 16))
 lbl2.place(x=80, y=180)
 
 precounitario=Entry(var, text="Preço Unitário", bd=2)
-precounitario.place(x=120, y=220)
+precounitario.place(x=80, y=220)
+
+
+data = ("gelado", "não gelado")
+lb=Listbox(var, height=4, selectmode='single')
+for num in data:
+    lb.insert(END,num)
+lb.place(x=80, y=250)
+
+btn = Button(var, text='Adicionar', command=adicionar)
+btn.place(x=80, y=350)
+
+btn = Button(var, text='Limpar')
+btn.place(x=150, y=350)
+
 
 var.mainloop()
 #if nome("")
-
