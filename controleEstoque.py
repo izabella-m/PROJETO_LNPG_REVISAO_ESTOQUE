@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import Combobox
-
+import tkinter as tk
+# importar messagebox
 
 # inserir nome do produto,
 # quantidade em estoque
@@ -11,6 +12,24 @@ def adicionar():
         arquivo.write(txtestoque.get() +',' + qtdestoque.get()+',' + precounitario.get()+',')
         arquivo.close()
 var = Tk()
+
+def remover_item():
+    txtestoque.delete(0, tk.END)
+    qtdestoque.delete(0, tk.END)
+    precounitario.delete(0, tk.END)
+
+if txtestoque and qtdestoque and precounitario: 
+    try:
+        txtestoque = str(txtestoque)
+        qtdestoque = int(qtdestoque)
+        precounitario = float(precounitario)
+        if qtdestoque > 0 and precounitario >0:
+            with open ('estoque.txt','a') as arquivo:
+                arquivo.write(f"{txtestoque}, {qtdestoque}, {precounitario}")
+    except:
+        print('Erro!')
+
+
 
 var.title("Estoque")
 var.geometry("500x500")
@@ -34,7 +53,6 @@ lbl2.place(x=80, y=180)
 precounitario=Entry(var, text="Preço Unitário", bd=2)
 precounitario.place(x=80, y=220)
 
-
 data = ("gelado", "não gelado")
 lb=Listbox(var, height=4, selectmode='single')
 for num in data:
@@ -44,8 +62,10 @@ lb.place(x=80, y=250)
 btn = Button(var, text='Adicionar', command=adicionar)
 btn.place(x=80, y=350)
 
-btn = Button(var, text='Limpar')
+btn = Button(var, text='Limpar', command=remover_item)
 btn.place(x=150, y=350)
+
+
 
 
 var.mainloop()
