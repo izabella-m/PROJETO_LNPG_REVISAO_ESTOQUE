@@ -3,13 +3,10 @@ from tkinter.ttk import Combobox
 import tkinter as tk
 # importar messagebox
 
-# inserir nome do produto,
-# quantidade em estoque
-# preço unitário
-# um campo de seleção se o produto é gelado ou não
+
 def adicionar():
     with open ('estoque.txt', 'a', encoding='UTF-8') as arquivo:
-        arquivo.write(txtestoque.get() +',' + qtdestoque.get()+',' + precounitario.get()+',')
+        arquivo.write(txtestoque.get()+","+ qtdestoque.get()+","+ precounitario.get())
         arquivo.close()
 var = Tk()
 
@@ -18,22 +15,26 @@ def remover_item():
     qtdestoque.delete(0, tk.END)
     precounitario.delete(0, tk.END)
 
-if txtestoque and qtdestoque and precounitario: 
-    try:
-        txtestoque = str(txtestoque)
-        qtdestoque = int(qtdestoque)
-        precounitario = float(precounitario)
-        if qtdestoque > 0 and precounitario >0:
-            with open ('estoque.txt','a') as arquivo:
-                arquivo.write(f"{txtestoque}, {qtdestoque}, {precounitario}")
-    except:
-        print('Erro!')
+"""
+Logica validação
+
+def adicionar():
+    if txtestoque and qtdestoque and precounitario: 
+        try:
+            txtestoque = str(txtestoque)
+            qtdestoque = int(qtdestoque)
+            precounitario = float(precounitario)
+            if qtdestoque > 0 and precounitario >0:
+                with open ('estoque.txt','a') as arquivo:
+                    arquivo.write(f"{txtestoque}, {qtdestoque}, {precounitario}\n")
+                    remover_item()
+        except:
+            print('Erro!')"""
 
 
 
 var.title("Estoque")
 var.geometry("500x500")
-
 
 lbl= Label(var, text="Nome do Produto", fg="pink", font=("Helvetica", 16))
 lbl.place(x=80, y=10)
@@ -65,8 +66,4 @@ btn.place(x=80, y=350)
 btn = Button(var, text='Limpar', command=remover_item)
 btn.place(x=150, y=350)
 
-
-
-
 var.mainloop()
-#if nome("")
